@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sibiu Robotics - Journey to California</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🤖</span>
+                <span class="team-name">Sibiu Robotics</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#progress">Progress</a></li>
+                <li><a href="#sponsor">Sponsor</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#outreach">Outreach</a></li>
+                <li><a href="#events">Events</a></li>
+            </ul>
+            <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Help Us Reach <span class="highlight">California!</span></h1>
+            <p class="hero-subtitle">From Sibiu, Romania to Long Beach, California</p>
+            <p class="hero-description">
+                We're a passionate robotics team from Sibiu, Romania, working hard to compete at the 
+                International Robotics Competition in Long Beach, California. Join us on our 10,000 km journey!
+            </p>
+            <div class="hero-buttons">
+                <a href="#sponsor" class="btn btn-primary">Sponsor Us</a>
+                <a href="#team" class="btn btn-secondary">Meet the Team</a>
+            </div>
+        </div>
+        <div class="hero-graphic">
+            <div class="plane-container">
+                <div class="plane">✈️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section id="progress" class="progress-section">
+        <div class="container">
+            <h2 class="section-title">Our Journey Progress</h2>
+            
+            <!-- Distance Progress -->
+            <div class="progress-card">
+                <div class="progress-header">
+                    <h3>🌍 Distance Traveled</h3>
+                    <p class="progress-subtitle">Sibiu → Long Beach</p>
+                </div>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="distanceKm">0</span>
+                        <span class="stat-label">km traveled</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">10,000</span>
+                        <span class="stat-label">km total</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="distancePercent">0</span>
+                        <span class="stat-label">% complete</span>
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="distanceBar">
+                        <span class="progress-glow"></span>
+                    </div>
+                </div>
+                <div class="journey-map">
+                    <div class="location start">📍 Sibiu</div>
+                    <div class="location end">🎯 Long Beach</div>
+                </div>
+            </div>
+
+            <!-- Plane Building Progress -->
+            <div class="progress-card">
+                <div class="progress-header">
+                    <h3>✈️ Plane Construction</h3>
+                    <p class="progress-subtitle">Building our way to success</p>
+                </div>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="planePercent">0</span>
+                        <span class="stat-label">% complete</span>
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar plane-bar" id="planeBar">
+                        <span class="progress-glow"></span>
+                    </div>
+                </div>
+                <div class="plane-parts">
+                    <div class="part" id="gearsStatus">⚙️ Gears: <span>Pending</span></div>
+                    <div class="part" id="engineStatus">🔧 Engine: <span>Pending</span></div>
+                    <div class="part" id="wingStatus">🛩️ Wings: <span>Pending</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsorship Packages -->
+    <section id="sponsor" class="sponsor-section">
+        <div class="container">
+            <h2 class="section-title">Sponsorship Packages</h2>
+            <p class="section-description">Choose how you'd like to support our journey</p>
+
+            <!-- Company Packages -->
+            <h3 class="package-category">🏢 Company Sponsorship</h3>
+            <div class="packages-grid">
+                <div class="package-card">
+                    <div class="package-icon">⚙️</div>
+                    <h4>Gear Package</h4>
+                    <p class="package-price">€500</p>
+                    <ul class="package-features">
+                        <li>Sponsor essential gears for the plane</li>
+                        <li>Logo on team website</li>
+                        <li>Social media recognition</li>
+                        <li>Team photo with gear component</li>
+                    </ul>
+                    <button class="btn btn-package" onclick="selectPackage('gears')">Select Package</button>
+                </div>
+
+                <div class="package-card featured">
+                    <div class="package-badge">Most Popular</div>
+                    <div class="package-icon">🔧</div>
+                    <h4>Engine Package</h4>
+                    <p class="package-price">€1,500</p>
+                    <ul class="package-features">
+                        <li>Sponsor the plane's engine</li>
+                        <li>Large logo on team materials</li>
+                        <li>Featured in press releases</li>
+                        <li>Video shoutout from team</li>
+                        <li>Competition updates</li>
+                    </ul>
+                    <button class="btn btn-package" onclick="selectPackage('engine')">Select Package</button>
+                </div>
+
+                <div class="package-card">
+                    <div class="package-icon">🛩️</div>
+                    <h4>Wing Package</h4>
+                    <p class="package-price">€2,500</p>
+                    <ul class="package-features">
+                        <li>Sponsor a plane wing</li>
+                        <li>Premium logo placement</li>
+                        <li>Company name on robot</li>
+                        <li>VIP competition invitation</li>
+                        <li>Exclusive video content</li>
+                        <li>Team visit to your company</li>
+                    </ul>
+                    <button class="btn btn-package" onclick="selectPackage('wing')">Select Package</button>
+                </div>
+            </div>
+
+            <!-- Individual Packages -->
+            <h3 class="package-category">👤 Individual Sponsorship</h3>
+            <div class="individual-sponsor">
+                <div class="km-sponsor-card">
+                    <div class="package-icon">🛣️</div>
+                    <h4>Buy Kilometers</h4>
+                    <p class="package-description">Every kilometer counts! Help us get closer to California.</p>
+                    <div class="km-calculator">
+                        <label for="kmAmount">Number of kilometers:</label>
+                        <input type="number" id="kmAmount" min="1" max="10000" value="10" oninput="calculateKmCost()">
+                        <div class="km-cost">
+                            <span class="cost-label">Your contribution:</span>
+                            <span class="cost-value" id="kmCost">€10</span>
+                        </div>
+                        <p class="km-rate">€1 per kilometer</p>
+                    </div>
+                    <button class="btn btn-package" onclick="selectKmPackage()">Sponsor Kilometers</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p class="section-description">The brilliant minds behind our robotics journey</p>
+            
+            <div class="team-intro">
+                <p>
+                    We are a dedicated group of students from Sibiu, Romania, passionate about robotics, 
+                    engineering, and innovation. Our team has been working tirelessly to design and build 
+                    our competition robot, and we're excited to represent Romania on the international stage!
+                </p>
+            </div>
+
+            <div class="team-stats">
+                <div class="team-stat">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Team Members</div>
+                </div>
+                <div class="team-stat">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Years Active</div>
+                </div>
+                <div class="team-stat">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Competitions</div>
+                </div>
+                <div class="team-stat">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Hours of Work</div>
+                </div>
+            </div>
+
+            <div class="team-roles">
+                <div class="role-card">
+                    <div class="role-icon">🔧</div>
+                    <h4>Engineering Team</h4>
+                    <p>Designing and building the mechanical components of our robot</p>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon">💻</div>
+                    <h4>Programming Team</h4>
+                    <p>Developing the software and AI that brings our robot to life</p>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon">🎨</div>
+                    <h4>Design Team</h4>
+                    <p>Creating the visual identity and marketing materials</p>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon">📢</div>
+                    <h4>Outreach Team</h4>
+                    <p>Engaging with the community and spreading STEM education</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Outreach Section -->
+    <section id="outreach" class="outreach-section">
+        <div class="container">
+            <h2 class="section-title">Our Outreach</h2>
+            <p class="section-description">Inspiring the next generation of innovators</p>
+
+            <div class="outreach-content">
+                <div class="outreach-item">
+                    <div class="outreach-image">🏫</div>
+                    <h3>School Workshops</h3>
+                    <p>
+                        We visit local schools to conduct robotics workshops, teaching kids the fundamentals 
+                        of programming, engineering, and problem-solving. Over 500 students have participated 
+                        in our workshops!
+                    </p>
+                </div>
+
+                <div class="outreach-item">
+                    <div class="outreach-image">🎓</div>
+                    <h3>STEM Education</h3>
+                    <p>
+                        We're committed to promoting STEM education in our community. Our team members mentor 
+                        younger students and organize coding clubs to inspire future engineers and programmers.
+                    </p>
+                </div>
+
+                <div class="outreach-item">
+                    <div class="outreach-image">🤝</div>
+                    <h3>Community Partnerships</h3>
+                    <p>
+                        We collaborate with local libraries, community centers, and tech companies to provide 
+                        free robotics demonstrations and hands-on learning experiences for children of all ages.
+                    </p>
+                </div>
+
+                <div class="outreach-item">
+                    <div class="outreach-image">🌟</div>
+                    <h3>Girls in STEM</h3>
+                    <p>
+                        We run special programs to encourage girls to pursue careers in STEM fields, breaking 
+                        down barriers and showing that robotics is for everyone.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events-section">
+        <div class="container">
+            <h2 class="section-title">Fundraising Events</h2>
+            <p class="section-description">Join us at our upcoming events!</p>
+
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="month">APR</span>
+                        <span class="day">15</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Robotics Demo Day</h3>
+                        <p class="event-location">📍 Sibiu Science Center</p>
+                        <p>Watch our robot in action! Includes live demonstrations, Q&A with the team, 
+                        and fun activities for kids. All proceeds support our California journey.</p>
+                        <div class="event-meta">
+                            <span>👨‍👩‍👧‍👦 Family Friendly</span>
+                            <span>🎫 €5 entry</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="month">MAY</span>
+                        <span class="day">3</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Kids Coding Workshop</h3>
+                        <p class="event-location">📍 Local Library</p>
+                        <p>Introduction to programming for kids aged 8-14. Learn to code simple robots 
+                        and games while supporting our team!</p>
+                        <div class="event-meta">
+                            <span>👶 Ages 8-14</span>
+                            <span>🎫 €20 per child</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="month">MAY</span>
+                        <span class="day">20</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Tech Talent Show</h3>
+                        <p class="event-location">📍 Sibiu Cultural Center</p>
+                        <p>An evening of innovation! Local students showcase their tech projects, 
+                        our team presents the competition robot, plus food, music, and raffles.</p>
+                        <div class="event-meta">
+                            <span>🎭 All Ages</span>
+                            <span>🎫 €10 entry</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="month">JUN</span>
+                        <span class="day">8</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Build-a-Bot Challenge</h3>
+                        <p class="event-location">📍 Team Workshop</p>
+                        <p>Teams compete to build the best mini robot from provided materials. 
+                        Great for team building and family fun!</p>
+                        <div class="event-meta">
+                            <span>👥 Team Event</span>
+                            <span>🎫 €50 per team</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>📧 contact@sibiurobotics.ro</p>
+                    <p>📱 +40 123 456 789</p>
+                    <p>📍 Sibiu, Romania</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Our Journey</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">YouTube</a>
+                        <a href="#" class="social-link">Twitter</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#progress">Our Progress</a>
+                    <a href="#sponsor">Become a Sponsor</a>
+                    <a href="#team">Meet the Team</a>
+                    <a href="#events">Upcoming Events</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Sibiu Robotics Club. All rights reserved. | Journey to California 🚀</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
