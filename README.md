@@ -1,129 +1,227 @@
-# Sibiu Robotics - Fundraiser Landing Page
+# robo DIEM - Website Campanie Fundraising
 
-A modern, animated landing page for the Sibiu Robotics Club fundraiser to attend an international competition in Long Beach, California.
+Website pentru campania de fundraising a echipei robo DIEM pentru participarea la competiția internațională Western Edge FLL Explore de la Long Beach, California.
 
-## Features
-
-### 🎯 Progress Tracking
-- **Distance Progress**: Tracks the journey from Sibiu, Romania to Long Beach, California (10,000 km)
-- **Plane Building Progress**: Visual representation of plane construction progress (0-100%)
-- **Component Tracking**: Monitor sponsorship of gears, engine, and wings
-
-### 💰 Sponsorship Packages
-
-#### Company Packages
-- **Gear Package** (€500): Essential gears sponsorship
-- **Engine Package** (€1,500): Most popular package
-- **Wing Package** (€2,500): Premium sponsorship tier
-
-#### Individual Sponsorship
-- **Buy Kilometers**: €1 per kilometer contribution
-
-### 📱 Sections
-- **Home**: Hero section with animated plane
-- **Progress**: Real-time progress tracking with animated bars
-- **Sponsor**: Detailed sponsorship package information
-- **Team**: Team presentation and statistics
-- **Outreach**: Community engagement activities
-- **Events**: Fundraising events calendar
-
-## Setup Instructions
-
-1. Open the `index.html` file in a web browser
-2. No build process required - pure HTML, CSS, and JavaScript
-
-## Customization
-
-### Update Progress Data
-
-To update the fundraising progress, edit the `progressData` object in `script.js`:
-
-```javascript
-let progressData = {
-    distanceKm: 2500,      // Current distance raised (out of 10,000)
-    planePercent: 35,      // Plane building progress (0-100%)
-    gearsComplete: false,  // Set to true when gears are sponsored
-    engineComplete: false, // Set to true when engine is sponsored
-    wingComplete: false    // Set to true when wings are sponsored
-};
-```
-
-### Real-time Updates
-
-You can update progress dynamically using the browser console:
-
-```javascript
-window.updateProgressData({ 
-    distanceKm: 5000, 
-    planePercent: 60, 
-    gearsComplete: true 
-});
-```
-
-### Colors and Styling
-
-Edit the CSS variables in `styles.css`:
-
-```css
-:root {
-    --primary-color: #00a8ff;
-    --secondary-color: #ff6b6b;
-    --accent-color: #ffd93d;
-    /* ... more colors */
-}
-```
-
-## File Structure
+## 📁 Structura Proiectului
 
 ```
 robotics-fundraiser/
-├── index.html          # Main HTML file
-├── styles.css          # All styles and animations
-├── script.js           # Interactive functionality
-└── README.md          # This file
+├── backend/
+│   ├── server.js          # Backend server
+│   ├── package.json       # Backend dependencies
+│   └── .gitignore         # Backend git ignore
+├── index.html              # Main website
+├── style.css              # Styling
+├── script.js              # Frontend JavaScript
+├── config.js              # Configuration (MODIFY HERE!)
+├── logo-robo-diem.jpeg    # Logo echipă
+├── logo-house-of-robotics.jpeg  # Logo club
+├── favicon-robo-diem.jpg  # Favicon
+├── team-placeholder.svg   # Fotografie echipă (înlocuiește cu fotografia reală)
+├── sponsors.txt           # Fișier pentru date sponsori
+├── config-examples.js     # Exemple de configurare
+├── QUICK-START.md         # Ghid rapid de utilizare
+└── README.md              # Acest fișier
 ```
 
-## Features to Add
+## 🚀 Cum să folosești website-ul
 
-Consider extending the page with:
+### Opțiunea 1: Client-Side Only (Simplu)
 
-1. **Admin Panel**: Create a simple form to update progress without editing code
-2. **Payment Integration**: Add Stripe or PayPal for direct donations
-3. **Photo Gallery**: Add team photos, robot images, and event pictures
-4. **Blog Section**: Share updates about the journey and robot building
-5. **Newsletter Signup**: Collect emails for updates
-6. **Testimonials**: Add sponsor testimonials
-7. **Multi-language Support**: Add Romanian/English toggle
-8. **Social Media Feed**: Embed Instagram or Facebook feed
+**Pentru prototipare rapidă sau hosting static:**
 
-## Browser Compatibility
+Deschide `index.html` direct în browser. Formularul de sponsor va descărca fișiere .txt local.
 
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
+### Opțiunea 2: Cu Backend Server (Recomandat)
 
-## Mobile Responsive
+**Pentru funcționalitate completă cu salvare automată pe server:**
 
-The page is fully responsive and works on:
-- Desktop computers
-- Tablets
-- Mobile phones
+#### Quick Start (Windows):
+Dublu-click pe `start-server.bat` și urmează instrucțiunile!
 
-## Contact Information
-
-Update the contact details in the footer section of `index.html`:
-
-```html
-<p>📧 contact@sibiurobotics.ro</p>
-<p>📱 +40 123 456 789</p>
-<p>📍 Sibiu, Romania</p>
+#### Manual Start:
+```powershell
+cd backend
+npm install
+npm start
 ```
 
-## License
+Apoi deschide: http://localhost:3000
 
-Free to use for the Sibiu Robotics Club fundraising campaign.
+📚 **Ghid complet:** Vezi [BACKEND-SETUP.md](BACKEND-SETUP.md)
+
+### 1. Deschide website-ul
+
+Simplu deschide fișierul `index.html` într-un browser web (Chrome, Firefox, Edge, etc.)
+
+### 2. Actualizează progresul campaniei
+
+**IMPORTANT:** Actualizează valoarea strânsă în fișierul `config.js`
+
+Deschide `config.js` și modifică:
+
+```javascript
+const CONFIG = {
+    // Current amount raised (in EUR)
+    amountRaised: 0,  // ← MODIFICĂ AICI! Pune suma strânsă până acum
+    
+    // Total goal (in EUR)
+    totalGoal: 35000,
+    ...
+}
+```
+
+Avionul se va deplasa automat de la Sibiu spre Long Beach pe măsură ce progresezi!
+
+### 3. Adaugă fotografia echipei
+
+- Înlocuiește fișierul `team-placeholder.jpg` cu o fotografie reală a echipei
+- SAU modifică în `config.js`:
+
+```javascript
+teamPhotoPath: "calea/catre/fotografie.jpg",
+```
+
+### 4. Actualizează detaliile bancare
+
+În `config.js`, secțiunea `bankDetails`:
+
+```javascript
+bankDetails: {
+    beneficiary: "House of Robotics",
+    iban: "RO00 XXXX 0000 0000 0000 0000",  // ← IBAN-ul real
+    bank: "[Numele Băncii]",                 // ← Numele băncii
+    details: "Donație robo DIEM - Long Beach"
+},
+```
+
+### 5. Adaugă sponsori/donatori
+
+În `config.js`, secțiunea `donors`:
+
+```javascript
+donors: [
+    {
+        name: "Nume Companie",
+        tier: "Tier 1 - Primele Roți Dințate",
+        logoPath: "path/to/company-logo.png"  // opțional
+    },
+    {
+        name: "Alta Companie SRL",
+        tier: "Tier 2 - Aripi",
+        logoPath: "logos/company2.png"
+    }
+    // Adaugă mai mulți sponsori aici
+],
+```
+
+### 6. Adaugă evenimente
+
+#### Activează secțiunea evenimente:
+
+```javascript
+showEvents: true,  // ← Schimbă la true pentru a afișa evenimente
+```
+
+#### Adaugă evenimente în listă:
+
+```javascript
+events: [
+    {
+        day: "20",
+        month: "MAR",
+        title: "Demonstrație Publică",
+        description: "Demonstrație de robotică - Piața Mare Sibiu, ora 14:00"
+    },
+    {
+        day: "5",
+        month: "APR",
+        title: "Workshop Robotică",
+        description: "Workshop pentru copii - House of Robotics"
+    }
+    // Adaugă mai multe evenimente aici
+],
+```
+
+## 📝 Cum funcționează formularele de contact
+
+### Donații individuale
+Când cineva apasă "Donează Acum" la donații individuale, va vedea detaliile bancare pentru transfer.
+
+### Sponsorizări corporate
+
+#### Cu Backend (Recomandat):
+1. Compania completează formularul
+2. Datele sunt salvate automat în `sponsors.txt` pe server
+3. Primești datele în fișier, organizate și ușor de accesat
+4. (Opțional) Poți configura notificări email automate
+
+#### Fără Backend:
+1. Când o companie completează formularul
+2. Browser-ul descarcă automat un fișier .txt cu datele
+3. Salvează fișierele descărcate pentru evidență
+
+📚 **Pentru configurare backend:** Vezi [BACKEND-SETUP.md](BACKEND-SETUP.md)
+
+## 🎨 Personalizare
+
+### Culori
+Culorile echipei sunt definite în `style.css`:
+- Primară: #639B9A
+- Secundară: #99CCCD
+- Întunecată: #333333
+
+### Modifică textul
+- Textul principal este în `index.html`
+- Slogan-ul: caută "Un parc arheologic..."
+- Informații despre echipă: caută secțiunea `about-section`
+
+## 🌐 Publicare Online
+
+Pentru a pune website-ul online (hosting gratuit):
+
+### Opțiunea 1: GitHub Pages
+1. Creează un repository pe GitHub
+2. Încarcă toate fișierele
+3. Activează GitHub Pages din Settings
+4. Website-ul va fi disponibil la `username.github.io/repo-name`
+
+### Opțiunea 2: Netlify
+1. Du-te pe [netlify.com](https://www.netlify.com)
+2. Drag & drop folderul cu fișierele
+3. Primești un URL instant gratuit
+
+### Opțiunea 3: Hosting propriu
+Încarcă toate fișierele pe un server web (Apache, Nginx, etc.)
+
+## 📱 Responsive Design
+
+Website-ul este optimizat pentru:
+- 💻 Desktop
+- 📱 Telefon mobil
+- 📲 Tabletă
+
+## ⚙️ Update Quick Reference
+
+| Ce vrei să modifici | Unde modifici |
+|---------------------|---------------|
+| Suma strânsă | `config.js` → `amountRaised` |
+| Fotografie echipă | Înlocuiește `team-placeholder.jpg` |
+| Detalii bancare | `config.js` → `bankDetails` |
+| Sponsori | `config.js` → `donors` |
+| Evenimente | `config.js` → `events` și `showEvents: true` |
+| Text despre echipă | `index.html` → secțiunea `about-section` |
+
+## 🆘 Suport
+
+Pentru probleme sau întrebări:
+- Email: robotics.sibiu@gmail.com
+- Tel: +40 744 39 22 82 (Monica Medeșan)
+
+## 📄 Licență
+
+© 2026 robo DIEM - House of Robotics. Toate drepturile rezervate.
 
 ---
 
-**Good luck with your fundraising! 🤖✈️**
+**Mult succes în campania de fundraising! 🚀✈️**
