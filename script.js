@@ -1,235 +1,365 @@
-// Progress tracking data (you can update these values)
-let progressData = {
-    distanceKm: 2500,      // Current distance in km (out of 10,000)
-    planePercent: 35,      // Plane building progress (0-100)
-    gearsComplete: false,  // Gear package sponsored
-    engineComplete: false, // Engine package sponsored
-    wingComplete: false    // Wing package sponsored
-};
+// ==========================================
+// MAIN SCRIPT
+// ==========================================
 
-// Initialize progress on page load
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
+    initializePage();
     updateProgress();
+    loadDonors();
+    loadEvents();
+    setupFormHandler();
     setupScrollAnimations();
-    setupSmoothScroll();
 });
 
-// Update all progress indicators
-function updateProgress() {
-    updateDistanceProgress();
-    updatePlaneProgress();
-    updatePlaneComponents();
-}
-
-// Update distance progress
-function updateDistanceProgress() {
-    const totalKm = 10000;
-    const currentKm = progressData.distanceKm;
-    const percentage = Math.round((currentKm / totalKm) * 100);
+// Initialize page settings
+function initializePage() {
+    // Set team photo
+    const teamPhoto = document.getElementById('teamPhoto');
+    if (teamPhoto) {
+        teamPhoto.src = CONFIG.teamPhotoPath;
+        teamPhoto.onerror = function() {
+            // If image doesn't exist, use a placeholder
+            this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect fill="%2399CCCD" width="600" height="400"/><text x="50%" y="50%" font-size="24" fill="%23639B9A" text-anchor="middle" dominant-baseline="middle">Fotografie Echipă robo DIEM</text></svg>';
+        };
+    }
     
-    // Update display values
-    document.getElementById('distanceKm').textContent = currentKm.toLocaleString();
-    document.getElementById('distancePercent').textContent = percentage;
-    
-    // Animate progress bar
-    const progressBar = document.getElementById('distanceBar');
-    setTimeout(() => {
-        progressBar.style.width = percentage + '%';
-    }, 500);
-}
-
-// Update plane building progress
-function updatePlaneProgress() {
-    const percentage = progressData.planePercent;
-    
-    // Update display value
-    document.getElementById('planePercent').textContent = percentage;
-    
-    // Animate progress bar
-    const progressBar = document.getElementById('planeBar');
-    setTimeout(() => {
-        progressBar.style.width = percentage + '%';
-    }, 500);
-}
-
-// Update plane component status
-function updatePlaneComponents() {
-    updateComponent('gearsStatus', progressData.gearsComplete, 'Gears');
-    updateComponent('engineStatus', progressData.engineComplete, 'Engine');
-    updateComponent('wingStatus', progressData.wingComplete, 'Wings');
-}
-
-// Update individual component
-function updateComponent(elementId, isComplete, name) {
-    const element = document.getElementById(elementId);
-    const statusSpan = element.querySelector('span');
-    
-    if (isComplete) {
-        statusSpan.textContent = 'Complete ✓';
-        element.classList.add('completed');
+    // Show/hide events section
+    const eventsSection = document.getElementById('evenimente');
+    const eventsNav = document.getElementById('events-nav');
+    if (CONFIG.showEvents) {
+        if (eventsSection) eventsSection.style.display = 'block';
+        if (eventsNav) eventsNav.style.display = 'block';
     } else {
-        statusSpan.textContent = 'Pending';
-        element.classList.remove('completed');
+        if (eventsSection) eventsSection.style.display = 'none';
+        if (eventsNav) eventsNav.style.display = 'none';
     }
 }
 
-// Handle package selection
-function selectPackage(packageType) {
-    let message = '';
-    let updateRequired = false;
+// Update progress indicator
+function updateProgress() {
+    const amountRaised = CONFIG.amountRaised;
+    const totalGoal = CONFIG.totalGoal;
+    const percentage = Math.min((amountRaised / totalGoal) * 100, 100);
     
-    switch(packageType) {
-        case 'gears':
-            message = 'Thank you for your interest in the Gear Package (€500)!\n\nOur team will contact you shortly with sponsorship details.';
-            if (!progressData.gearsComplete) {
-                progressData.gearsComplete = true;
-                updateRequired = true;
-            }
-            break;
-        case 'engine':
-            message = 'Thank you for your interest in the Engine Package (€1,500)!\n\nThis is our most popular package. Our team will contact you shortly with sponsorship details.';
-            if (!progressData.engineComplete) {
-                progressData.engineComplete = true;
-                updateRequired = true;
-            }
-            break;
-        case 'wing':
-            message = 'Thank you for your interest in the Wing Package (€2,500)!\n\nThis premium package includes exclusive benefits. Our team will contact you shortly with sponsorship details.';
-            if (!progressData.wingComplete) {
-                progressData.wingComplete = true;
-                updateRequired = true;
-            }
-            break;
+    // Update text displays
+    const amountElement = document.getElementById('amountRaised');
+    const percentageElement = document.getElementById('progressPercentage');
+    
+    if (amountElement) {
+        amountElement.textContent = amountRaised.toLocaleString('ro-RO');
     }
     
-    alert(message);
+    if (percentageElement) {
+        percentageElement.textContent = percentage.toFixed(1);
+    }
     
-    if (updateRequired) {
-        updatePlaneComponents();
-        // Optionally update plane progress
-        calculatePlaneProgress();
+    // Update plane position
+    // The plane travels from right (100%) to left (0%)
+    // Start position (Sibiu/right) = 100%, End position (Long Beach/left) = 0%
+    const planePosition = 100 - percentage;
+    const planeContainer = document.getElementById('planeContainer');
+    
+    if (planeContainer) {
+        planeContainer.style.left = planePosition + '%';
     }
 }
 
-// Calculate plane progress based on components
-function calculatePlaneProgress() {
-    let progress = 0;
-    if (progressData.gearsComplete) progress += 33;
-    if (progressData.engineComplete) progress += 34;
-    if (progressData.wingComplete) progress += 33;
+// Load and display donors
+function loadDonors() {
+    const donorsList = document.getElementById('donorsList');
+    if (!donorsList) return;
     
-    progressData.planePercent = Math.max(progressData.planePercent, progress);
-    updatePlaneProgress();
-}
-
-// Calculate kilometer sponsorship cost
-function calculateKmCost() {
-    const kmAmount = parseInt(document.getElementById('kmAmount').value) || 0;
-    const costPerKm = 1; // €1 per km
-    const totalCost = kmAmount * costPerKm;
-    
-    document.getElementById('kmCost').textContent = '€' + totalCost.toLocaleString();
-}
-
-// Handle kilometer package selection
-function selectKmPackage() {
-    const kmAmount = parseInt(document.getElementById('kmAmount').value) || 0;
-    
-    if (kmAmount <= 0) {
-        alert('Please enter a valid number of kilometers.');
-        return;
-    }
-    
-    const totalCost = kmAmount * 1; // €1 per km
-    const message = `Thank you for sponsoring ${kmAmount} km!\n\nYour contribution: €${totalCost}\n\nOur team will contact you shortly with payment details.`;
-    
-    alert(message);
-    
-    // Update distance progress
-    const newDistance = Math.min(progressData.distanceKm + kmAmount, 10000);
-    progressData.distanceKm = newDistance;
-    updateDistanceProgress();
-}
-
-// Toggle mobile menu
-function toggleMenu() {
-    const navMenu = document.querySelector('.nav-menu');
-    navMenu.classList.toggle('active');
-}
-
-// Smooth scroll for navigation links
-function setupSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+    if (CONFIG.donors && CONFIG.donors.length > 0) {
+        donorsList.innerHTML = '';
+        
+        CONFIG.donors.forEach(donor => {
+            const donorCard = document.createElement('div');
+            donorCard.className = 'donor-card';
             
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Close mobile menu if open
-                const navMenu = document.querySelector('.nav-menu');
-                navMenu.classList.remove('active');
+            let logoHTML = '';
+            if (donor.logoPath) {
+                logoHTML = `<img src="${donor.logoPath}" alt="${donor.name}" class="donor-logo">`;
             }
+            
+            donorCard.innerHTML = `
+                ${logoHTML}
+                <div class="donor-name">${donor.name}</div>
+                <div class="donor-tier">${donor.tier}</div>
+            `;
+            
+            donorsList.appendChild(donorCard);
         });
+    } else {
+        // Show placeholder if no donors yet
+        donorsList.innerHTML = `
+            <div class="donor-placeholder">
+                <p>Devino primul nostru sponsor și logo-ul tău va apărea aici!</p>
+            </div>
+        `;
+    }
+}
+
+// Load and display events
+function loadEvents() {
+    const eventsList = document.getElementById('eventsList');
+    if (!eventsList || !CONFIG.showEvents) return;
+    
+    if (CONFIG.events && CONFIG.events.length > 0) {
+        eventsList.innerHTML = '';
+        
+        CONFIG.events.forEach(event => {
+            const eventCard = document.createElement('div');
+            eventCard.className = 'event-card';
+            
+            eventCard.innerHTML = `
+                <div class="event-date">
+                    <div class="event-day">${event.day}</div>
+                    <div class="event-month">${event.month}</div>
+                </div>
+                <div class="event-details">
+                    <h3>${event.title}</h3>
+                    <p>${event.description}</p>
+                </div>
+            `;
+            
+            eventsList.appendChild(eventCard);
+        });
+    }
+}
+
+// Modal functions
+function showIndividualDonation() {
+    const modal = document.getElementById('individualModal');
+    if (modal) {
+        // Update bank details from config
+        const bankDetailsHTML = `
+            <div class="bank-detail">
+                <strong>Beneficiar:</strong>
+                <span>${CONFIG.bankDetails.beneficiary}</span>
+            </div>
+            <div class="bank-detail">
+                <strong>IBAN:</strong>
+                <span>${CONFIG.bankDetails.iban}</span>
+            </div>
+            <div class="bank-detail">
+                <strong>Bancă:</strong>
+                <span>${CONFIG.bankDetails.bank}</span>
+            </div>
+            <div class="bank-detail">
+                <strong>Detalii transfer:</strong>
+                <span>${CONFIG.bankDetails.details}</span>
+            </div>
+        `;
+        
+        const bankDetailsContainer = modal.querySelector('.bank-details');
+        if (bankDetailsContainer) {
+            bankDetailsContainer.innerHTML = bankDetailsHTML;
+        }
+        
+        modal.style.display = 'block';
+    }
+}
+
+function showCompanySponsorship() {
+    const modal = document.getElementById('companyModal');
+    if (modal) {
+        modal.style.display = 'block';
+    }
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+}
+
+// Setup form submission handler
+function setupFormHandler() {
+    const form = document.getElementById('sponsorForm');
+    if (!form) return;
+    
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Disable submit button to prevent double submission
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Se trimite...';
+        
+        // Get form data
+        const formData = {
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            companyName: document.getElementById('companyName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value || ''
+        };
+        
+        try {
+            // Send to backend server
+            const response = await fetch('/api/sponsor', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Show success message
+                showSuccessMessage(result.message);
+                
+                // Reset form
+                form.reset();
+                
+                // Close modal after 3 seconds
+                setTimeout(() => {
+                    closeModal('companyModal');
+                }, 3000);
+            } else {
+                // Show error message
+                showErrorMessage(result.message);
+            }
+            
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            
+            // Fallback: If backend is not available, download data locally
+            console.log('Backend not available, using fallback method');
+            saveSponsorDataLocally(formData);
+            showSuccessMessage('Am salvat datele local. Te rugăm să contactezi echipa direct.');
+            form.reset();
+        } finally {
+            // Re-enable submit button
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        }
     });
 }
 
-// Scroll animations
+// Fallback: Save sponsor data locally (if backend is not available)
+function saveSponsorDataLocally(formData) {
+    const entry = `
+===========================================
+NEW SPONSOR INQUIRY (Saved Locally)
+Date: ${new Date().toLocaleString('ro-RO')}
+-------------------------------------------
+Name: ${formData.firstName} ${formData.lastName}
+Company: ${formData.companyName}
+Email: ${formData.email}
+Phone: ${formData.phone || 'N/A'}
+===========================================
+
+`;
+    
+    // Create a download link for the data
+    const blob = new Blob([entry], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sponsor_${formData.companyName.replace(/[^a-z0-9]/gi, '_')}_${Date.now()}.txt`;
+    
+    // Auto-download
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+}
+
+// Show success message
+function showSuccessMessage(message) {
+    const form = document.getElementById('sponsorForm');
+    
+    // Remove any existing messages
+    const existingMessages = form.parentNode.querySelectorAll('.success-message, .error-message');
+    existingMessages.forEach(msg => msg.remove());
+    
+    const successDiv = document.createElement('div');
+    successDiv.className = 'success-message';
+    successDiv.innerHTML = `
+        <p><strong>✓ Mulțumim!</strong></p>
+        <p>${message || 'Am primit cererea dumneavoastră. Vă vom contacta în cel mai scurt timp.'}</p>
+    `;
+    
+    form.parentNode.insertBefore(successDiv, form);
+    
+    // Remove message after 5 seconds
+    setTimeout(() => {
+        successDiv.remove();
+    }, 5000);
+}
+
+// Show error message
+function showErrorMessage(message) {
+    const form = document.getElementById('sponsorForm');
+    
+    // Remove any existing messages
+    const existingMessages = form.parentNode.querySelectorAll('.success-message, .error-message');
+    existingMessages.forEach(msg => msg.remove());
+    
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.innerHTML = `
+        <p><strong>✗ Eroare</strong></p>
+        <p>${message || 'A apărut o eroare. Te rugăm să încerci din nou.'}</p>
+    `;
+    
+    form.parentNode.insertBefore(errorDiv, form);
+    
+    // Remove message after 5 seconds
+    setTimeout(() => {
+        errorDiv.remove();
+    }, 5000);
+}
+
+// Smooth scroll for navigation
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Setup scroll animations
 function setupScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -100px 0px'
     };
-    
-    const observer = new IntersectionObserver((entries) => {
+
+    const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
             }
         });
     }, observerOptions);
-    
-    // Add fade-in class to elements you want to animate
-    const animatedElements = document.querySelectorAll('.progress-card, .package-card, .event-card, .outreach-item, .role-card');
+
+    // Observe elements for animation
+    const animatedElements = document.querySelectorAll('.tier, .donor-card, .event-card');
     animatedElements.forEach(el => {
-        el.classList.add('fade-in');
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
 }
-
-// Optional: Auto-update demo (simulates donations coming in)
-// Uncomment this if you want to see the progress bars automatically increment for demo purposes
-/*
-function startDemo() {
-    setInterval(() => {
-        // Randomly add 10-50 km
-        if (progressData.distanceKm < 10000) {
-            const increment = Math.floor(Math.random() * 40) + 10;
-            progressData.distanceKm = Math.min(progressData.distanceKm + increment, 10000);
-            updateDistanceProgress();
-        }
-        
-        // Randomly increment plane progress
-        if (progressData.planePercent < 100) {
-            progressData.planePercent = Math.min(progressData.planePercent + 1, 100);
-            updatePlaneProgress();
-        }
-    }, 5000); // Update every 5 seconds
-}
-
-// Uncomment to start demo
-// startDemo();
-*/
-
-// Export progress data for easy updating (useful for admin panel in the future)
-window.updateProgressData = function(newData) {
-    Object.assign(progressData, newData);
-    updateProgress();
-};
-
-// Example usage of updateProgressData:
-// window.updateProgressData({ distanceKm: 5000, planePercent: 60, gearsComplete: true });

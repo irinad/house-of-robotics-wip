@@ -1,0 +1,914 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #639B9A;
+    --secondary-color: #99CCCD;
+    --dark-color: #333333;
+    --light-bg: #f5f9f9;
+    --white: #ffffff;
+    --accent: #4a7978;
+    --shadow: rgba(99, 155, 154, 0.15);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: var(--white);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+.navbar {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-brand .logo {
+    height: 50px;
+    width: auto;
+}
+
+.team-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+    color: var(--primary-color);
+}
+
+.btn-donate-nav {
+    background-color: var(--primary-color);
+    color: var(--white) !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-donate-nav:hover {
+    background-color: var(--accent);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    color: var(--white);
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.hero-content {
+    padding: 2rem 0;
+}
+
+.club-logo {
+    height: 160px;
+    width: auto;
+    margin-bottom: 1rem;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slogan {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+    line-height: 1.8;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.stat {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1.5rem 2rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.stat-value {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Progress Section */
+.progress-section {
+    padding: 4rem 0;
+    background-color: var(--light-bg);
+}
+
+.progress-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.progress-subtitle {
+    text-align: center;
+    color: var(--dark-color);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.progress-tracker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3rem 0;
+    gap: 2rem;
+}
+
+.city-marker {
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.city-start {
+    order: 1;
+}
+
+.city-end {
+    order: 3;
+}
+
+.city-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.city-name {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.progress-track {
+    flex-grow: 1;
+    position: relative;
+    height: 60px;
+    order: 2;
+}
+
+.progress-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+
+.plane-container {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: left 0.5s ease;
+    z-index: 10;
+}
+
+.plane {
+    font-size: 3rem;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+    transform: rotate(-90deg);
+}
+
+.progress-stats {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.progress-amount,
+.progress-percentage {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--dark-color);
+}
+
+.amount-raised {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+#progressPercentage {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Donation Section */
+.donation-section {
+    padding: 4rem 0;
+    background-color: var(--white);
+}
+
+.donation-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.donation-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.donation-type {
+    background-color: var(--light-bg);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px var(--shadow);
+}
+
+.donation-type h3 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.donation-subtitle {
+    text-align: center;
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.donation-tiers {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tier {
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tier:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(99, 155, 154, 0.3);
+}
+
+.individual-tier {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tier-name {
+    font-weight: bold;
+    color: var(--dark-color);
+    font-size: 1.2rem;
+}
+
+.tier-price {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.company-tier {
+    position: relative;
+}
+
+.company-tier.featured {
+    border: 2px solid var(--primary-color);
+    background: linear-gradient(135deg, rgba(153, 204, 205, 0.1) 0%, rgba(99, 155, 154, 0.1) 100%);
+}
+
+.tier-badge {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.company-tier .tier-name {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.company-tier .tier-price {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.tier-benefits {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.tier-benefits li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.tier-benefits li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.btn-donate {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-donate:hover {
+    background-color: var(--accent);
+    transform: scale(1.05);
+}
+
+.btn-sponsor {
+    background-color: var(--dark-color);
+}
+
+.btn-sponsor:hover {
+    background-color: #555;
+}
+
+/* About Section */
+.about-section {
+    padding: 4rem 0;
+    background-color: var(--light-bg);
+}
+
+.about-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px var(--shadow);
+}
+
+.about-text p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Donors Section */
+.donors-section {
+    padding: 4rem 0;
+    background-color: var(--white);
+}
+
+.donors-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--dark-color);
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.donors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.donor-card {
+    background-color: var(--light-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.donor-card:hover {
+    transform: translateY(-5px);
+}
+
+.donor-logo {
+    max-width: 200px;
+    max-height: 100px;
+    margin-bottom: 1rem;
+}
+
+.donor-name {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.donor-tier {
+    color: var(--dark-color);
+    font-size: 0.9rem;
+}
+
+.donor-placeholder {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    color: var(--dark-color);
+    font-size: 1.2rem;
+}
+
+/* Events Section */
+.events-section {
+    padding: 4rem 0;
+    background-color: var(--light-bg);
+}
+
+.events-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.events-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.event-card {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px var(--shadow);
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.event-date {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 80px;
+}
+
+.event-day {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.event-month {
+    font-size: 1rem;
+}
+
+.event-details h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 4rem 0;
+    background-color: var(--white);
+}
+
+.contact-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.contact-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    display: grid;
+    gap: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--light-bg);
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.contact-icon {
+    font-size: 2.5rem;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.contact-details strong {
+    color: var(--primary-color);
+}
+
+.contact-details a {
+    color: var(--dark-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-details a:hover {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--dark-color);
+    color: var(--white);
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-logo {
+    height: 40px;
+    width: auto;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--white);
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-close {
+    color: var(--dark-color);
+    float: right;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--primary-color);
+}
+
+.modal h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+.bank-details {
+    background-color: var(--light-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.bank-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(99, 155, 154, 0.2);
+}
+
+.bank-detail:last-child {
+    border-bottom: none;
+}
+
+.bank-detail strong {
+    color: var(--primary-color);
+}
+
+.modal-note {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Sponsor Form */
+.sponsor-form {
+    margin: 2rem 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--secondary-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.btn-submit {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: var(--accent);
+}
+
+.or-divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--dark-color);
+    font-weight: bold;
+}
+
+.direct-contact {
+    background-color: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.direct-contact p {
+    margin: 0.5rem 0;
+}
+
+.direct-contact a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.direct-contact a:hover {
+    text-decoration: underline;
+}
+
+/* Success Message */
+.success-message {
+    background-color: #4caf50;
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    text-align: center;
+    animation: slideIn 0.3s ease;
+}
+
+/* Error Message */
+.error-message {
+    background-color: #f44336;
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    text-align: center;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .slogan {
+        font-size: 1.1rem;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .progress-tracker {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .city-start,
+    .city-end {
+        order: unset;
+    }
+    
+    .progress-track {
+        width: 100%;
+        height: 200px;
+    }
+    
+    .progress-line {
+        width: 4px;
+        height: 100%;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        transform: translateX(-50%);
+        background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color));
+    }
+    
+    .plane-container {
+        left: 50% !important;
+        top: auto;
+        bottom: auto;
+        transform: translate(-50%, -50%);
+    }
+    
+    .plane {
+        transform: rotate(0deg);
+    }
+    
+    .donation-types {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .modal-content {
+        margin: 10% 5%;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .donation-types {
+        grid-template-columns: 1fr;
+    }
+    
+    .donation-type {
+        min-width: auto;
+    }
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
