@@ -133,15 +133,22 @@ body {
 }
 
 /* Hero Section */
+/* background-image: url('team-model.jpg'); */
 .hero {
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    background: linear-gradient(135deg, rgba(21, 82, 83, 0.85) 0%, rgba(96, 152, 151, 0.85) 100%); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: var(--white);
     padding: 2rem 0;
     text-align: center;
+    position: relative;
 }
 
 .hero-content {
     padding: 2rem 0;
+    position: relative;
+    z-index: 1;
 }
 
 .club-logo {
@@ -153,7 +160,7 @@ body {
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .slogan {
@@ -161,6 +168,7 @@ body {
     margin-bottom: 2rem;
     font-style: italic;
     line-height: 1.8;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-stats {
@@ -172,27 +180,47 @@ body {
 }
 
 .stat {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.25);
     padding: 1.5rem 2rem;
     border-radius: 10px;
     backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .stat-value {
     font-size: 1.3rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .stat-label {
     font-size: 0.9rem;
     opacity: 0.9;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Progress Section */
+/* Progress Section - World Map Style */
 .progress-section {
     padding: 4rem 0;
-    background-color: var(--light-bg);
+    background: linear-gradient(180deg, #f5f9f9 0%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.03;
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 50px, var(--primary-color) 50px, var(--primary-color) 51px),
+        repeating-linear-gradient(90deg, transparent, transparent 50px, var(--primary-color) 50px, var(--primary-color) 51px);
+    pointer-events: none;
 }
 
 .progress-section h2 {
@@ -200,105 +228,150 @@ body {
     color: var(--primary-color);
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    font-weight: 700;
 }
 
 .progress-subtitle {
     text-align: center;
-    color: var(--dark-color);
-    font-size: 1.1rem;
+    color: var(--accent);
+    font-size: 1.2rem;
     margin-bottom: 3rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
-.progress-tracker {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 3rem 0;
-    gap: 2rem;
+/* World Map Container */
+.progress-map-container {
+    margin: 3rem auto;
+    max-width: 900px;
 }
 
-.city-marker {
-    text-align: center;
-    flex-shrink: 0;
-}
-
-.city-start {
-    order: 1;
-}
-
-.city-end {
-    order: 3;
-}
-
-.city-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.city-name {
-    font-weight: bold;
-    color: var(--primary-color);
-    font-size: 1.1rem;
-    line-height: 1.4;
-}
-
-.progress-track {
-    flex-grow: 1;
+.world-map-bg {
     position: relative;
-    height: 60px;
-    order: 2;
+    background-image: url('plane-route.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 0;
+    box-shadow: 0 10px 40px rgba(96, 152, 151, 0.2);
+    border: 2px solid rgba(96, 152, 151, 0.15);
+    min-height: 450px;
+    width: 100%;
+    overflow: hidden;
 }
 
-.progress-line {
+/* Flight Path Overlay */
+.flight-path-overlay {
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
-    transform: translateY(-50%);
-    border-radius: 2px;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
 }
 
+.flight-path-line {
+    fill: none;
+    stroke: #609897;
+    stroke-width: 0.4;
+    stroke-dasharray: 2, 2;
+    stroke-linecap: round;
+    opacity: 0.7;
+}
+
+/* Plane Animation */
 .plane-container {
     position: absolute;
-    top: 50%;
     transform: translate(-50%, -50%);
-    transition: left 0.5s ease;
-    z-index: 10;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 15;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
-.plane {
-    font-size: 3rem;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
-    transform: rotate(-90deg);
+.plane-icon {
+    width: 100px;
+    height: auto;    
+    animation: fly 3s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
+@keyframes fly {
+    0%, 100% {
+        transform: rotate(5deg) translateY(0);
+    }
+    50% {
+        transform: rotate(5deg) translateY(-6px);
+    }
+}
+
+/* Progress Stats Cards */
 .progress-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(96, 152, 151, 0.1);
     display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(96, 152, 151, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(96, 152, 151, 0.2);
+}
+
+.stat-card .stat-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 4rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
 }
 
-.progress-amount,
-.progress-percentage {
-    text-align: center;
-    font-size: 1.2rem;
+.stat-card .stat-icon img {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+}
+
+.stat-card .stat-content {
+    flex: 1;
+}
+
+.stat-card .stat-label {
+    font-size: 0.9rem;
     color: var(--dark-color);
+    opacity: 0.7;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
 }
 
-.amount-raised {
-    font-size: 2rem;
-    font-weight: bold;
+.stat-card .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
     color: var(--primary-color);
+    line-height: 1.2;
 }
 
-#progressPercentage {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary-color);
+.stat-card .stat-value span {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Donation Section */
@@ -914,40 +987,40 @@ body {
         gap: 1rem;
     }
     
-    .progress-tracker {
-        flex-direction: column;
+    /* Mobile Progress Tracker Styles */
+    .progress-section h2 {
+        font-size: 2rem;
+    }
+    
+    .progress-subtitle {
+        font-size: 1rem;
+    }
+    
+    .world-map-bg {
+        padding: 0;
+        min-height: 250px;
+        background-size: cover;
+    }
+    
+    .plane-icon {
+        font-size: 2rem;
+    }
+    
+    .progress-stats {
+        grid-template-columns: 1fr;
         gap: 1rem;
     }
     
-    .city-start,
-    .city-end {
-        order: unset;
+    .stat-card {
+        padding: 1.25rem;
     }
     
-    .progress-track {
-        width: 100%;
-        height: 200px;
+    .stat-card .stat-icon {
+        font-size: 2rem;
     }
     
-    .progress-line {
-        width: 4px;
-        height: 100%;
-        left: 50%;
-        top: 0;
-        bottom: 0;
-        transform: translateX(-50%);
-        background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color));
-    }
-    
-    .plane-container {
-        left: 50% !important;
-        top: auto;
-        bottom: auto;
-        transform: translate(-50%, -50%);
-    }
-    
-    .plane {
-        transform: rotate(0deg);
+    .stat-card .stat-value {
+        font-size: 1.5rem;
     }
     
     .donation-types {
