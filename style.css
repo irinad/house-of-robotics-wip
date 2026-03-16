@@ -989,21 +989,36 @@ body {
     
     /* Mobile Progress Tracker Styles */
     .progress-section h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        padding: 0 1rem;
     }
     
     .progress-subtitle {
         font-size: 1rem;
+        padding: 0 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .progress-map-container {
+        margin: 2rem 0;
+        padding: 0 1rem;
     }
     
     .world-map-bg {
         padding: 0;
-        min-height: 250px;
-        background-size: cover;
+        min-height: 300px;
+        background-size: contain;
+        background-position: center center;
+        border-radius: 15px;
     }
     
     .plane-icon {
-        font-size: 2rem;
+        width: 60px;
+    }
+    
+    .stat-card .stat-icon img {
+        width: 2rem;
+        height: 2rem;
     }
     
     .progress-stats {
@@ -1044,6 +1059,46 @@ body {
 }
 
 @media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .slogan {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .progress-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .progress-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .world-map-bg {
+        min-height: 250px;
+        background-size: contain;
+        margin: 0 auto;
+    }
+    
+    .plane-icon {
+        width: 50px;
+    }
+    
+    .stat-card .stat-icon img {
+        width: 1.8rem;
+        height: 1.8rem;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 1.3rem;
+    }
+    
+    .stat-card .stat-label {
+        font-size: 0.85rem;
+    }
+    
     .donation-types {
         grid-template-columns: 1fr;
     }
