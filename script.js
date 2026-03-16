@@ -55,14 +55,39 @@ function updateProgress() {
         percentageElement.textContent = percentage.toFixed(1);
     }
     
-    // Update plane position
-    // The plane travels from right (100%) to left (0%)
-    // Start position (Sibiu/right) = 100%, End position (Long Beach/left) = 0%
-    const planePosition = 100 - percentage;
+    // Update plane position along the path in plane-route.png
     const planeContainer = document.getElementById('planeContainer');
     
     if (planeContainer) {
-        planeContainer.style.left = planePosition + '%';
+        // Define path points matching the blue dotted line in plane-route.png
+        // Path goes from Sibiu (right) to Long Beach (left)
+        const t = percentage / 100; // normalize to 0-1
+        
+        // Cubic bezier curve matching the red dots on plane-route.png
+        // Path goes from Sibiu, România (right) to Long Beach, California (left)
+        
+        // Starting point (Sibiu, România - right red dot): x=83%, y=48%
+        // Control point 1 (over Atlantic): x=65%, y=30%
+        // Control point 2 (over North America): x=30%, y=25%
+        // End point (Long Beach, California - left red dot): x=15%, y=52%
+        
+        const p0x = 83, p0y = 48;  // Start (Sibiu)
+        const p1x = 65, p1y = 30;  // Control 1 (Atlantic arc)
+        const p2x = 30, p2y = 25;  // Control 2 (North America arc)
+        const p3x = 15, p3y = 52;  // End (Long Beach)
+        
+        // Cubic Bezier formula: B(t) = (1-t)³P0 + 3(1-t)²tP1 + 3(1-t)t²P2 + t³P3
+        const mt = 1 - t; // (1 - t)
+        const mt2 = mt * mt;
+        const mt3 = mt2 * mt;
+        const t2 = t * t;
+        const t3 = t2 * t;
+        
+        const x = mt3 * p0x + 3 * mt2 * t * p1x + 3 * mt * t2 * p2x + t3 * p3x;
+        const y = mt3 * p0y + 3 * mt2 * t * p1y + 3 * mt * t2 * p2y + t3 * p3y;
+        
+        planeContainer.style.left = x + '%';
+        planeContainer.style.top = y + '%';
     }
 }
 
@@ -248,58 +273,6 @@ function setupFormHandler() {
             submitButton.textContent = originalText;
         }
     });
-}
-
-// Fallback: Save sponsor data locally (if backend is not available)
-function saveSponsorDataLocally(formData) {
-    const entry = `
-===========================================
-NEW SPONSOR INQUIRY (Saved Locally)
-Date: ${new Date().toLocaleString('ro-RO')}
--------------------------------------------
-Name: ${formData.firstName} ${formData.lastName}
-Company: ${formData.companyName}
-Email: ${formData.email}
-Phone: ${formData.phone || 'N/A'}
-===========================================
-
-`;
-    
-    // Create a download link for the data
-    const blob = new Blob([entry], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `sponsor_${formData.companyName.replace(/[^a-z0-9]/gi, '_')}_${Date.now()}.txt`;
-    
-    // Auto-download
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-}
-
-// Show success message
-function showSuccessMessage(message) {
-    const form = document.getElementById('sponsorForm');
-    
-    // Remove any existing messages
-    const existingMessages = form.parentNode.querySelectorAll('.success-message, .error-message');
-    existingMessages.forEach(msg => msg.remove());
-    
-    const successDiv = document.createElement('div');
-    successDiv.className = 'success-message';
-    successDiv.innerHTML = `
-        <p><strong>✓ Mulțumim!</strong></p>
-        <p>${message || 'Am primit cererea dumneavoastră. Vă vom contacta în cel mai scurt timp.'}</p>
-    `;
-    
-    form.parentNode.insertBefore(successDiv, form);
-    
-    // Remove message after 5 seconds
-    setTimeout(() => {
-        successDiv.remove();
-    }, 5000);
 }
 
 // Show error message

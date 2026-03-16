@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation TEST COMMIT -->
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
@@ -61,34 +61,43 @@
     <!-- Progress Tracker -->
     <section class="progress-section">
         <div class="container">
-            <h2>Drumul echipei spre mondiale</h2>
-            <p class="progress-subtitle">De la Sibiu, România la Long Beach, California</p>
+            <h2>🌍 Drumul echipei spre mondiale</h2>
+            <p class="progress-subtitle">Următoarea oprire: Long Beach, California</p>
             
-            <div class="progress-tracker">
-                <div class="city-marker city-start">
-                    <div class="city-name">Long Beach<br>California</div>
-                    <div class="city-icon">📍</div>
-                </div>
-                
-                <div class="progress-track">
+            <div class="progress-map-container">
+                <div class="world-map-bg">
+                    <!-- Flight path overlay -->
+                    <svg class="flight-path-overlay" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M 83 48 C 65 30, 30 25, 15 52" class="flight-path-line" />
+                    </svg>
+                    <!-- Plane on path -->
                     <div class="plane-container" id="planeContainer">
-                        <div class="plane">✈️</div>
+                        <img src="avion.png" alt="Plane" class="plane-icon">
                     </div>
-                    <div class="progress-line"></div>
-                </div>
-                
-                <div class="city-marker city-end">
-                    <div class="city-icon">📍</div>
-                    <div class="city-name">Sibiu<br>România</div>
                 </div>
             </div>
             
             <div class="progress-stats">
-                <div class="progress-amount">
-                    <span class="amount-raised" id="amountRaised">0</span> EUR strânși
+                <div class="stat-card">
+                    <div class="stat-icon"><img src="diamant.png" alt="Diamond"></div>
+                    <div class="stat-content">
+                        <div class="stat-label">Strâns până acum</div>
+                        <div class="stat-value"><span id="amountRaised">0</span> EUR</div>
+                    </div>
                 </div>
-                <div class="progress-percentage">
-                    <span id="progressPercentage">0</span>% din obiectiv
+                <div class="stat-card">
+                    <div class="stat-icon"><img src="cupa_la_tinta.png" alt="Trophy"></div>
+                    <div class="stat-content">
+                        <div class="stat-label">Progres</div>
+                        <div class="stat-value"><span id="progressPercentage">0</span>%</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><img src="tinta.png" alt="Target"></div>
+                    <div class="stat-content">
+                        <div class="stat-label">Obiectiv final</div>
+                        <div class="stat-value">35,000 EUR</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -262,18 +271,18 @@
                             <a href="mailto:robotics.sibiu@gmail.com">robotics.sibiu@gmail.com</a>
                         </div>
                     </div>
-                    <div class="contact-item">
+                    <!--<div class="contact-item">
                         <div class="contact-icon">📱</div>
                         <div class="contact-details">
                             <strong>Telefon</strong>
                             <a href="tel:+40744123456">+40 744 12 34 56</a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="contact-item">
                         <div class="contact-icon">👤</div>
                         <div class="contact-details">
                             <strong>Persoană de contact</strong>
-                            Monica
+                            Monica Medeșan
                         </div>
                     </div>
                 </div>

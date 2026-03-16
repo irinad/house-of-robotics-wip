@@ -9,7 +9,7 @@ const CONFIG = {
     amountRaised: 1000,
     
     // Total goal (in EUR)
-    totalGoal: 35000,
+    totalGoal: 35000,    
     
     // Bank Details for Individual Donations
     bankDetails: {
