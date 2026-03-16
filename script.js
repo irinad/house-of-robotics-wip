@@ -66,12 +66,12 @@ function updateProgress() {
         // Cubic bezier curve matching the red dots on plane-route.png
         // Path goes from Sibiu, România (right) to Long Beach, California (left)
         
-        // Starting point (Sibiu, România - right red dot): x=83%, y=48%
+        // Starting point (Sibiu, România - right red dot): x=90%, y=48%
         // Control point 1 (over Atlantic): x=65%, y=30%
         // Control point 2 (over North America): x=30%, y=25%
         // End point (Long Beach, California - left red dot): x=15%, y=52%
         
-        const p0x = 83, p0y = 48;  // Start (Sibiu)
+        const p0x = 90, p0y = 48;  // Start (Sibiu)
         const p1x = 65, p1y = 30;  // Control 1 (Atlantic arc)
         const p2x = 30, p2y = 25;  // Control 2 (North America arc)
         const p3x = 15, p3y = 52;  // End (Long Beach)
@@ -367,3 +367,4 @@ function setupMobileMenu() {
         });
     }
 }
+
