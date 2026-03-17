@@ -11,20 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
     setupFormHandler();
     setupScrollAnimations();
     setupMobileMenu();
+    setupPlaneAnimation();
 });
 
 // Initialize page settings
 function initializePage() {
-    // Set team photo
-    const teamPhoto = document.getElementById('teamPhoto');
-    if (teamPhoto) {
-        teamPhoto.src = CONFIG.teamPhotoPath;
-        teamPhoto.onerror = function() {
-            // If image doesn't exist, use a placeholder
-            this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect fill="%2399CCCD" width="600" height="400"/><text x="50%" y="50%" font-size="24" fill="%23639B9A" text-anchor="middle" dominant-baseline="middle">Fotografie Echipă robo DIEM</text></svg>';
-        };
-    }
-    
     // Show/hide events section
     const eventsSection = document.getElementById('evenimente');
     const eventsNav = document.getElementById('events-nav');
@@ -364,6 +355,23 @@ function setupMobileMenu() {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             }
+        });
+    }
+}
+
+// Setup plane loop animation on click
+function setupPlaneAnimation() {
+    const planeIcon = document.querySelector('.plane-icon');
+    
+    if (planeIcon) {
+        planeIcon.addEventListener('click', function() {
+            // Add looping class
+            planeIcon.classList.add('looping');
+            
+            // Remove class after animation completes (1.5s)
+            setTimeout(function() {
+                planeIcon.classList.remove('looping');
+            }, 1500);
         });
     }
 }

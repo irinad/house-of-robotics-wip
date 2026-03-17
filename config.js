@@ -6,24 +6,21 @@
 // Campaign Settings
 const CONFIG = {
     // Current amount raised (in EUR)
-    amountRaised: 15000,
+    amountRaised: 7000,
     
     // Total goal (in EUR)
     totalGoal: 35000,    
     
     // Bank Details for Individual Donations
     bankDetails: {
-        beneficiary: "House of Robotics",
-        iban: "RO00 XXXX 0000 0000 0000 0000",
-        bank: "[Numele Băncii]",
-        details: "Donație robo DIEM - Long Beach"
+        beneficiary: "Asociația Mâini Unite",
+        iban: "RO66BTRLRONCRT0CX2126106",
+        bank: "Banca Transilvania",
+        details: "roboDIEM la mondiale"
     },
     
     // Show/Hide Events Section
-    showEvents: true,
-    
-    // Team Photo (replace with actual photo path)
-    teamPhotoPath: "roboDIEM.jpg",
+    showEvents: false,
     
     // Donors/Sponsors List
     // Add company sponsors here
