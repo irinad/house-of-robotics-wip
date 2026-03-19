@@ -192,6 +192,31 @@ function closeModal(modalId) {
     }
 }
 
+// Copy IBAN to clipboard
+function copyIBAN() {
+    const iban = 'RO66BTRLRONCRT0CX2126106';
+    const button = event.currentTarget;
+    const btnText = button.querySelector('.btn-text');
+    const btnTextCopied = button.querySelector('.btn-text-copied');
+    
+    navigator.clipboard.writeText(iban).then(function() {
+        // Show success state
+        btnText.style.display = 'none';
+        btnTextCopied.style.display = 'inline';
+        button.classList.add('copied');
+        
+        // Reset after 2 seconds
+        setTimeout(function() {
+            btnText.style.display = 'inline';
+            btnTextCopied.style.display = 'none';
+            button.classList.remove('copied');
+        }, 2000);
+    }).catch(function(err) {
+        console.error('Failed to copy IBAN: ', err);
+        alert('Nu s-a putut copia IBAN-ul. Vă rugăm să-l copiați manual.');
+    });
+}
+
 // Close modal when clicking outside
 window.onclick = function(event) {
     if (event.target.classList.contains('modal')) {
